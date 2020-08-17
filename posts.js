@@ -24,7 +24,7 @@ function deleteFiles(files, callback) {
   });
 }
 
-app.get("https://bollygallery.herokuapp.com/api", (req, res)=>{
+app.get("/api", (req, res)=>{
     Model.find({}, (err, data)=>{
       if(!err){
         res.json(data)
@@ -32,7 +32,7 @@ app.get("https://bollygallery.herokuapp.com/api", (req, res)=>{
     })
 })
 
-app.route("https://bollygallery.herokuapp.com/posts").get((req, res) => {
+app.route("/posts").get((req, res) => {
   Model.find((err, results) => {
     if (!err) {
       res.render("posts", {
