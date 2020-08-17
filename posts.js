@@ -56,7 +56,7 @@ app.post("/posts/:posts_id", (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          res.redirect("https://bollygallery.herokuapp.com/posts");
+          res.redirect("/posts");
         }
       });
     } else {
