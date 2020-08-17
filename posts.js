@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require('path');
 const app = express();
+let posts = require(".routes/posts");
+let api = require("./routes/api");
 const Model = require(path.join(__dirname, "./server"));
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,7 +26,7 @@ function deleteFiles(files, callback) {
   });
 }
 
-app.get("https://bollygallery.herokuapp.com/api", (req, res)=>{
+app.get("/api", (req, res)=>{
     Model.find({}, (err, data)=>{
       if(!err){
         res.json(data)
@@ -32,7 +34,7 @@ app.get("https://bollygallery.herokuapp.com/api", (req, res)=>{
     })
 })
 
-app.route("https://bollygallery.herokuapp.com/posts").get((req, res) => {
+app.route("/posts").get((req, res) => {
   Model.find((err, results) => {
     if (!err) {
       res.render("posts", {
@@ -45,7 +47,7 @@ app.route("https://bollygallery.herokuapp.com/posts").get((req, res) => {
   });
 });
 
-app.post("https://bollygallery.herokuapp.com/posts/:posts_id", (req, res) => {
+app.post("/posts/:posts_id", (req, res) => {
   const fieldname = req.body.field_name;
   const id = fieldname.shift();
   let pathArray = fieldname.toString().split(",");

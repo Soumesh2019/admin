@@ -4,6 +4,7 @@ const multer = require("multer");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const path = require("path");
+let posts = require('./routes/posts');
 const app = express();
 const Model = require(path.join(__dirname, "./server"));
 app.use(express.static(__dirname + "/public/"));
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) => {
+app.route("/posts").post(upload, (req, res) => {
   let filename = req.files.map((file) => {
     return file.filename;
   });
@@ -60,7 +61,7 @@ app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) =>
 
   post.save((err, results) => {
     if (!err) {
-      res.redirect("https://bollygallery.herokuapp.com/posts");
+      res.redirect("/posts");
     } else {
       res.send(err);
     }
