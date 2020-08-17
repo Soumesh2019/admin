@@ -45,7 +45,7 @@ app.route("/posts").get((req, res) => {
   });
 });
 
-app.post("https://bollygallery.herokuapp.com/posts/:posts_id", (req, res) => {
+app.post("/posts/:posts_id", (req, res) => {
   const fieldname = req.body.field_name;
   const id = fieldname.shift();
   let pathArray = fieldname.toString().split(",");
