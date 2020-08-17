@@ -1,0 +1,19 @@
+{
+  "name": "admin_panel",
+  "version": "1.0.0",
+  "description": "Admin Panel for Bollywood Gallery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"nodemon index.js\" \"nodemon posts.js\""
+  },
+  "author": "Soumesh",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0",
+    "multer": "^1.4.2"
+  }
+}
