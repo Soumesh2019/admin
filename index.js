@@ -4,13 +4,11 @@ const multer = require("multer");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const path = require("path");
-const serveStatic = require('serve-static');
 const app = express();
 const Model = require(path.join(__dirname, "./server"));
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-app.use(serveStatic(__dirname + "/admin_panel/dist"));
 
 
 const storage = multer.diskStorage({
