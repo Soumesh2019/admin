@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.route("/posts").post(upload, (req, res) => {
+app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) => {
   let filename = req.files.map((file) => {
     return file.filename;
   });
