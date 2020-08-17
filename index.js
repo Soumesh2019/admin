@@ -4,13 +4,13 @@ const multer = require("multer");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const path = require("path");
-const { strict } = require("assert");
-const assert = require("assert");
+const serveStatic = require('serve-static');
 const app = express();
-const Model = require("./server");
+const Model = require(path.join(__dirname, "./server"));
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(serveStatic(__dirname + "/admin_panel/dist"));
 
 
 const storage = multer.diskStorage({
@@ -35,11 +35,11 @@ const upload = multer({
   },
 }).array("photos", 3);
 
-app.get("/", (req, res) => {
+app.get("https://bollygallery.herokuapp.com", (req, res) => {
   res.render("index");
 });
 
-app.route("/posts").post(upload, (req, res) => {
+app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) => {
   let filename = req.files.map((file) => {
     return file.filename;
   });
@@ -62,10 +62,7 @@ app.route("/posts").post(upload, (req, res) => {
 
   post.save((err, results) => {
     if (!err) {
-      res.redirect("http://localhost:5000/posts");
-
-      // assert.equal(err.errors["title"].message, "Path `title` is required.");
-      // assert.equal(err.errors["images"].message, "Path `images` is required.");
+      res.redirect("https://bollygallery.herokuapp.com/posts");
     } else {
       res.send(err);
     }

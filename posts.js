@@ -1,13 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const path = require('path');
+const serveStatic = require('serve-static');
 const app = express();
-const Model = require("./server");
+const Model = require(path.join(__dirname, "./server"));
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 const fs = require("fs");
-const e = require("express");
+app.use(serveStatic(__dirname + "/admin_panel/dist"));
+
 
 function deleteFiles(files, callback) {
   var i = files.length;
@@ -24,7 +26,7 @@ function deleteFiles(files, callback) {
   });
 }
 
-app.get("/", (req, res)=>{
+app.get("/api", (req, res)=>{
     Model.find({}, (err, data)=>{
       if(!err){
         res.json(data)

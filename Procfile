@@ -1,2 +1,2 @@
 web: node index.js
-api: node posts.js
+worker: node posts.js
