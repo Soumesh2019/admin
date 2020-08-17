@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"nodes index.js\" \"nodes posts.js\""
+    "start": "concurrently \"node index.js\" \"node posts.js\""
   },
   "author": "Soumesh",
   "license": "ISC",
