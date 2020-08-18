@@ -32,11 +32,11 @@ const upload = multer({
   },
 }).array("photos", 3);
 
-app.get("/", (req, res) => {
+app.get("https://bollygallery.herokuapp.com/", (req, res) => {
   res.render("index");
 });
 
-app.route("/posts").post(upload, (req, res) => {
+app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) => {
   let filename = req.files.map((file) => {
     return file.filename;
   });
@@ -59,7 +59,7 @@ app.route("/posts").post(upload, (req, res) => {
 
   post.save((err, results) => {
     if (!err) {
-      res.redirect("/posts");
+      res.redirect("https://bollygallery.herokuapp.com/posts");
     } else {
       res.send(err);
     }

@@ -24,7 +24,7 @@ function deleteFiles(files, callback) {
   });
 }
 
-app.get("/api", (req, res)=>{
+app.get("https://bollygallery.herokuapp.com/api", (req, res)=>{
     Model.find({}, (err, data)=>{
       if(!err){
         res.json(data)
@@ -32,7 +32,7 @@ app.get("/api", (req, res)=>{
     })
 })
 
-app.route("/posts").get((req, res) => {
+app.route("https://bollygallery.herokuapp.com/posts").get((req, res) => {
   Model.find((err, results) => {
     if (!err) {
       res.render("posts", {
@@ -45,7 +45,7 @@ app.route("/posts").get((req, res) => {
   });
 });
 
-app.post("/posts/:posts_id", (req, res) => {
+app.post("https://bollygallery.herokuapp.com/posts/:posts_id", (req, res) => {
   const fieldname = req.body.field_name;
   const id = fieldname.shift();
   let pathArray = fieldname.toString().split(",");
@@ -56,7 +56,7 @@ app.post("/posts/:posts_id", (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          res.redirect("/posts");
+          res.redirect("https://bollygallery.herokuapp.com/posts");
         }
       });
     } else {
