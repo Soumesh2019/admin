@@ -5,9 +5,11 @@ const ejs = require("ejs");
 const path = require("path");
 const app = express();
 const Model = require(path.join(__dirname, "./server"));
+const fs = require('fs');
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+
 
 const storage = multer.diskStorage({
   destination: "./public/images/",
