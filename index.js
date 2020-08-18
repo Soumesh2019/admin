@@ -9,7 +9,6 @@ app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-
 const storage = multer.diskStorage({
   destination: "./public/images/",
   filename: function (req, file, cb) {
@@ -32,36 +31,92 @@ const upload = multer({
   },
 }).array("photos", 3);
 
-app.get("https://bollygallery.herokuapp.com/", (req, res) => {
+function deleteFiles(files, callback) {
+  var i = files.length;
+  files.forEach(function (filepath) {
+    fs.unlink(filepath, function (err) {
+      i--;
+      if (err) {
+        callback(err);
+        return;
+      } else if (i <= 0) {
+        callback(null);
+      }
+    });
+  });
+}
+
+app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.route("https://bollygallery.herokuapp.com/posts").post(upload, (req, res) => {
-  let filename = req.files.map((file) => {
-    return file.filename;
+app
+  .route("/posts")
+  .get((req, res) => {
+    Model.find((err, results) => {
+      if (!err) {
+        res.render("posts", {
+          posts: results,
+        });
+      } else {
+        res.send(err);
+      }
+    });
+  })
+  .post(upload, (req, res) => {
+    let filename = req.files.map((file) => {
+      return file.filename;
+    });
+
+    let filepath = req.files.map((file) => {
+      return file.path;
+    });
+
+    const title = req.body.title;
+    const date = new Date().toDateString();
+    const content = req.body.content;
+
+    const post = new Model({
+      title: title,
+      content: content,
+      images: filename,
+      uploadedOn: date,
+      image_path: filepath,
+    });
+
+    post.save((err, results) => {
+      if (!err) {
+        res.redirect("/posts");
+      } else {
+        res.send(err);
+      }
+    });
   });
 
-  let filepath = req.files.map((file) => {
-    return file.path;
-  });
-
-  const title = req.body.title;
-  const date = new Date().toDateString();
-  const content = req.body.content;
-
-  const post = new Model({
-    title: title,
-    content: content,
-    images: filename,
-    uploadedOn: date,
-    image_path: filepath
-  });
-
-  post.save((err, results) => {
+app.get("/api", (req, res) => {
+  Model.find({}, (err, data) => {
     if (!err) {
-      res.redirect("https://bollygallery.herokuapp.com/posts");
+      res.json(data);
+    }
+  });
+});
+
+app.post("/posts/:posts_id", (req, res) => {
+  const fieldname = req.body.field_name;
+  const id = fieldname.shift();
+  let pathArray = fieldname.toString().split(",");
+
+  Model.deleteOne({ _id: id }, (error) => {
+    if (!error) {
+      deleteFiles(pathArray, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect("/posts");
+        }
+      });
     } else {
-      res.send(err);
+      res.send(error);
     }
   });
 });

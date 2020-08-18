@@ -4,8 +4,7 @@
   "description": "Admin Panel for Bollywood Gallery",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"node index.js\" \"node posts.js\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Soumesh",
   "license": "ISC",
@@ -14,7 +13,6 @@
     "ejs": "^3.1.3",
     "express": "^4.17.1",
     "mongoose": "^5.10.0",
-    "multer": "^1.4.2",
-    "concurrently": "^5.3.0"
+    "multer": "^1.4.2"
   }
 }
