@@ -16,10 +16,6 @@ const postsSchema = mongoose.Schema({
   content: {
     type: String,
   },
-  images: {
-    type: Array,
-    required: [true, "Please provide images"],
-  },
   uploadedOn: String,
   image_path: {
     type: Array,
