@@ -4,13 +4,13 @@
     <div class="card mycard">
 
             <% post.images.forEach((image)=>{ %>
-                <img src="images/<%= image %>" alt="images" id="images">
+                <img src="<%= image %>" alt="images" id="images">
             <% }) %>
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>
           <p class="card-text"><%= post.content %></p>
           
-          <form action="https://bollygallery.herokuapp.com/posts/:posts_id" method="post">
+          <form action="/posts/:posts_id" method="post">
             <input type="hidden" name="field_name" value="<%= post._id %>" />
             <input type="hidden" name="field_name" value="<%= post.image_path %>" />
             <button type="submit">Delete</button>

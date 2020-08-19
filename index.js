@@ -9,10 +9,11 @@ const fs = require('fs');
 app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use("/uploads", express.static("uploads"));
 
 
 const storage = multer.diskStorage({
-  destination: "./public/images/",
+  destination: "./uploads/",
   filename: function (req, file, cb) {
     cb(
       null,
@@ -81,7 +82,6 @@ app
     const post = new Model({
       title: title,
       content: content,
-      images: filename,
       uploadedOn: date,
       image_path: filepath,
     });
@@ -123,4 +123,4 @@ app.post("/posts/:posts_id", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 3000, () => console.log("Running on 3000"));
+app.listen(process.env.PORT || 5000, () => console.log("Running on 3000"));
