@@ -32,7 +32,7 @@ const upload = multer({
     }
     cb(null, true);
   },
-}).array("photos", 3);
+}).array("photos", 10);
 
 function deleteFiles(files, callback) {
   var i = files.length;
