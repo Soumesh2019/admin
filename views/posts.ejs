@@ -12,7 +12,7 @@
           
           <form action="/posts/:posts_id" method="post">
             <input type="hidden" name="field_name" value="<%= post._id %>" />
-            <input type="hidden" name="field_name" value="<%= post.image_path %>" />
+            <input type="hidden" name="field_name" value="'https://bollygallery.herokuapp.com/'<%= post.image_path %>" />
             <button type="submit">Delete</button>
         </form>
         </div>
