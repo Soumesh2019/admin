@@ -1,5 +1,0 @@
-[[redirects]]
-  from = "https://somenetlifysite.netlify.app"
-  to = "/index.js"
-  status = 301
-  force = true
